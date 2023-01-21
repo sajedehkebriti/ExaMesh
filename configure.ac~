@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.71])
-AC_INIT([examesh],[1.0],[cfog@mech.ubc.ca])
+AC_PREREQ([2.69])
+AC_INIT([examesh], [1.0], [cfog@mech.ubc.ca])
 AC_CONFIG_AUX_DIR([conf])
 AC_CONFIG_MACRO_DIR([conf])
 AC_CONFIG_SRCDIR([ExaMesh.h])
@@ -36,7 +36,8 @@ AC_CHECK_LIB(m, sqrt)
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lMeshIO':
 AC_ARG_WITH( MeshIO-path,
-	     [AS_HELP_STRING([--with-MeshIO-path=PATH],[specify installed location for the MeshIO library])],
+	     [AC_HELP_STRING([--with-MeshIO-path=PATH],
+		[specify installed location for the MeshIO library])],
 		[CPPFLAGS="$CPPFLAGS -I$with_MeshIO_path"])
 AC_CHECK_LIB([MeshIO], [libMeshIO_is_present],
 		       [LDFLAGS="-Wl,-rpath -Wl,$with_MeshIO_path -L$with_MeshIO_path $LDFLAGS"
@@ -50,7 +51,7 @@ AC_CHECK_LIB([boost_unit_test_framework], [main])
 AC_CHECK_LIB([sz], [SZ_encoder_enabled])
 
 AC_ARG_WITH( HDF5-path,
-	     [AS_HELP_STRING([--with-HDF5-path=PATH],[specify installed location for the HDF5 library])],,
+	     [AC_HELP_STRING([--with-HDF5-path=PATH],[specify installed location for the HDF5 library])],,
 	     [with_HDF5_path="/usr/include/hdf5/serial"] )
 
 CPPFLAGS_tmp=$CPPFLAGS
@@ -68,7 +69,7 @@ CPPFLAGS=$CPPFLAGS_tmp
 AC_SUBST(HAVE_LIBHDF5_SERIAL)
 
 AC_ARG_WITH( CGNS-path,
-	     [AS_HELP_STRING([--with-CGNS-path=PATH],[specify installed location for the CGNS file format library])],,
+	     [AC_HELP_STRING([--with-CGNS-path=PATH],[specify installed location for the CGNS file format library])],,
 	     [with_CGNS_path="no"] )
 
 if (test "x$with_CGNS_path" == "xno") ; then
